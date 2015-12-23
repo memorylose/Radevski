@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RCA.WebApi", "RCA.WebApi\RCA.WebApi.csproj", "{B80D7F78-B9A9-403F-852F-1F0EA2A9F670}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RCA.Model", "RCA.Model\RCA.Model.csproj", "{D4DAC2E3-0E2D-4339-93FB-B9F4B85C7F2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RCA.Utility", "RCA.Utility\RCA.Utility.csproj", "{3F4DD11A-F951-44F8-81AC-B21DCC1E900E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B80D7F78-B9A9-403F-852F-1F0EA2A9F670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B80D7F78-B9A9-403F-852F-1F0EA2A9F670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B80D7F78-B9A9-403F-852F-1F0EA2A9F670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B80D7F78-B9A9-403F-852F-1F0EA2A9F670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4DAC2E3-0E2D-4339-93FB-B9F4B85C7F2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4DAC2E3-0E2D-4339-93FB-B9F4B85C7F2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4DAC2E3-0E2D-4339-93FB-B9F4B85C7F2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4DAC2E3-0E2D-4339-93FB-B9F4B85C7F2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F4DD11A-F951-44F8-81AC-B21DCC1E900E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F4DD11A-F951-44F8-81AC-B21DCC1E900E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F4DD11A-F951-44F8-81AC-B21DCC1E900E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F4DD11A-F951-44F8-81AC-B21DCC1E900E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

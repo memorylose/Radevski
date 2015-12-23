@@ -1,0 +1,6 @@
+E:\Fabric\Radevski\Radevski_Fabric\RCA.WebApi\RCA.Utility\bin\Debug\RCA.Utility.exe.config
+E:\Fabric\Radevski\Radevski_Fabric\RCA.WebApi\RCA.Utility\bin\Debug\RCA.Utility.exe
+E:\Fabric\Radevski\Radevski_Fabric\RCA.WebApi\RCA.Utility\bin\Debug\RCA.Utility.pdb
+E:\Fabric\Radevski\Radevski_Fabric\RCA.WebApi\RCA.Utility\obj\Debug\RCA.Utility.csprojResolveAssemblyReference.cache
+E:\Fabric\Radevski\Radevski_Fabric\RCA.WebApi\RCA.Utility\obj\Debug\RCA.Utility.exe
+E:\Fabric\Radevski\Radevski_Fabric\RCA.WebApi\RCA.Utility\obj\Debug\RCA.Utility.pdb

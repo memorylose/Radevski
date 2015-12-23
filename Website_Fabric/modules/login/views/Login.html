@@ -1,0 +1,49 @@
+﻿<form name="form" ng-submit="login()" role="form">
+    <div style="width:100%; height:50px; margin-bottom:50px;">
+        <!--<div class="col-md-2" style="color:#FFFFFF; font-weight:bold; font-size:15px; height:50px; line-height:50px; ">Redevski Coolstore Application</div>-->
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4" style="padding:0;">
+                <div style="margin:0 auto; border-radius:3px;background-color:white; padding-bottom:20px;" class="">
+                    <div class="" style="text-align:center; color:#428BCA; font-weight:bold; font-size:20px; padding-top:30px; ">Redevski Coolstore Application</div>
+                    <div style="text-align:center;font-size:14px; color:#636E7B; font-size:18px; padding-top:20px;" class="">Already a Member?</div>
+                    <div style="text-align:center;font-size:14px; color:#65707D; font-size:13px; padding-top:2px;">Sign in to your account</div>
+                    <div class="" ng-show="error" style="text-align:center; width:85%; margin:0 auto; margin-top:15px; color:red;">{{error}}</div>
+                    <div class="input-group" style="width:85%; margin:0 auto;margin-top:25px;">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" class="form-control" style="height:40px;" placeholder="Username" ng-model="username" name="username" required>
+                    </div>
+                    <div class="input-group" ng-show="form.username.$dirty && form.username.$error.required" style="width:85%; margin:0 auto;margin-top:10px; color:red; font-size:13px;">
+                        Username is required
+                    </div>
+                    <div class="input-group" style="width:85%; margin:0 auto;margin-top:20px;">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="password" class="form-control" placeholder="Password" style="height:40px;" ng-model="password" name="password" required>
+                    </div>
+                    <div class="input-group" style="width:85%; margin:0 auto;margin-top:10px; color:red; font-size:13px;" ng-show="form.password.$dirty && form.password.$error.required">
+                        Password is required
+                    </div>
+                    <div class="input-group" style="width:85%; margin:0 auto;margin-top:20px;">
+                        <div class="col-md-6 col-sm-6 col-xs-6" style="padding:0;">
+                            <label class="checkbox" style="margin-left:20px;">
+                                <input type="checkbox" class="" style="width:15px;height:15px;"> <span class="" style="color:#575F6A; font-size:12px;">Remember Me</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6" style="padding:0;">
+                            <button type="submit" class="btn btn-success" ng-disabled="form.$invalid || dataLoading" style="float:right; margin-top:2px;">Sign in > </button>
+                            <img ng-if="dataLoading" style="margin:0 auto; margin-top:10px;" class="" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</form>
+
+
+

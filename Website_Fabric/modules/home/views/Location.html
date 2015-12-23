@@ -1,0 +1,64 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="admin-search"><input type="text" ng-model="search" class="form-control" placeholder="Search"></div>
+        <button type="button" ng-click="ShowAdd()" class="btn btn-info admin-create">Create New Location</button>
+        <img ng-if="dataLoading" class="admin-img-loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        <div ng-if="tableLoading">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th ng-click="sort('LocationType')">
+                            Location Type
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='LocationType'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                        </th>
+                        <th ng-click="sort('LocationName')">
+                            Location
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='LocationName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="AddTr">
+                        <td>
+                            <select ng-model="model.LocationTypeId" class="dropdown form-control" required>
+                                <option value="" selected>-- Choose category --</option>
+                                <option ng-repeat="location in locations"
+                                        value="{{location.LocationId}}">
+                                    {{location.LocationType}}
+                                </option>
+                            </select>
+                        </td>
+                        <td><input type="text" ng-model="model.LocationName" /></td>
+                        <td><button type="button" ng-click="addLocation(model)" class="btn btn-warning admin-btn" ng-disabled="model.LocationTypeId == null">Save</button><button type="button" class="btn btn-danger" ng-click="Cancel()">Cancel</button></td>
+                    </tr>
+                    <tr dir-paginate="model in LocationList|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
+                        <td ng-if="!IsEdit">{{model.LocationType}}</td>
+                        <td ng-if="!IsEdit">{{model.LocationName}}</td>
+                        <td ng-if="IsEdit">
+                            <select ng-model="model.LocationTypeId" class="dropdown form-control" required>
+                                <option ng-repeat="location in locations"
+                                        value="{{location.LocationId}}">
+                                    {{location.LocationType}}
+                                </option>
+                            </select>
+                        </td>
+                        <td ng-if="IsEdit"><input type="text" ng-model="model.LocationName" value="{{model.LocationName}}" /></td>
+                        <td>
+                            <button type="button" ng-click="IsEdit = true" ng-show="!IsEdit" class="btn btn-warning admin-btn">Edit</button>
+                            <button type="button" ng-click="deleteLocation(model.LocationId,$index)" ng-show="!IsEdit" class="btn btn-danger">Delete</button>
+                            <button type="button" ng-show="IsEdit" ng-click="editLocation(model)" class="btn btn-warning admin-btn">Save</button>
+                            <button type="button" class="btn btn-danger" ng-show="IsEdit" ng-click="IsEdit = false">Cancel</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <dir-pagination-controls max-size="5"
+                                     direction-links="true"
+                                     boundary-links="true">
+            </dir-pagination-controls>
+        </div>
+    </div>
+</div>

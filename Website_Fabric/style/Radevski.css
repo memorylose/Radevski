@@ -1,0 +1,103 @@
+﻿/*----Common-----*/
+body {
+}
+
+.test {
+    border: 1px solid red;
+}
+
+th {
+    cursor: pointer;
+}
+
+.cpad {
+    padding: 0;
+}
+
+/*----Login-----*/
+.login-div {
+    height: 350px;
+    margin: 0 auto;
+    border-radius: 3px;
+    background-color: white;
+}
+
+.login-title {
+    text-align: center;
+    color: #428BCA;
+    font-weight: bold;
+    font-size: 20px;
+    padding-top: 30px;
+}
+
+.login-title-sub {
+    text-align: center;
+    font-size: 14px;
+    color: #636E7B;
+    font-size: 18px;
+    padding-top: 20px;
+}
+
+.login-sign {
+    text-align: center;
+    font-size: 14px;
+    color: #65707D;
+    font-size: 13px;
+    padding-top: 2px;
+}
+
+.login-input-div {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+.login-input {
+    height: 40px;
+}
+
+.login-ck-lb {
+    margin-left: 20px;
+}
+
+.login-ck {
+    width: 15px;
+    height: 15px;
+}
+
+.login-rem {
+    color: #575F6A;
+    font-size: 12px;
+}
+
+.login-signin {
+    float: right;
+    margin-top: 2px;
+}
+/*----Administration-----*/
+.sort-icon {
+    font-size: 9px;
+    margin-left: 5px;
+}
+
+.nav-bg {
+    background-color: #428BCA;
+}
+
+.admin-search {
+    float: right;
+}
+
+.admin-create {
+    margin-bottom: 30px;
+}
+
+.admin-img-loading {
+    margin: 0 auto;
+    margin-top: 200px;
+    display: block;
+}
+
+.admin-btn {
+    margin-right: 10px;
+}
