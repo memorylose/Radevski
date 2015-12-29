@@ -25,31 +25,32 @@ angular.module('BasicHttpAuthExample', [
 
         .when('/', {
             controller: 'AdminController',
-            templateUrl: 'modules/home/views/FruitCategory.html'
+            templateUrl: 'modules/admin/views/FruitCategory.html'
         })
-            //.when('/home', {
-            //    controller: 'AdminController',
-            //    templateUrl: 'modules/home/views/Home.html'
-            //})
 
             .when('/FruitCategory', {
                 controller: 'AdminController',
-                templateUrl: 'modules/home/views/FruitCategory.html'
+                templateUrl: 'modules/admin/views/FruitCategory.html'
             })
 
             .when('/Fruit', {
                 controller: 'AdminController',
-                templateUrl: 'modules/home/views/Fruit.html'
+                templateUrl: 'modules/admin/views/Fruit.html'
             })
 
                 .when('/LocationType', {
                     controller: 'AdminController',
-                    templateUrl: 'modules/home/views/LocationType.html'
+                    templateUrl: 'modules/admin/views/LocationType.html'
                 })
                 .when('/Location', {
                     controller: 'AdminController',
-                    templateUrl: 'modules/home/views/Location.html'
+                    templateUrl: 'modules/admin/views/Location.html'
                 })
+
+              .when('/Receivable', {
+                  controller: 'HomeController',
+                  templateUrl: 'modules/home/views/Receivable.html'
+              })
 
         .otherwise({ redirectTo: '/login' });
 }])

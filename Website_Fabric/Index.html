@@ -15,10 +15,12 @@
     <script src="script/app.js"></script>
     <script src="modules/login/controller.js"></script>
     <script src="modules/login/service.js"></script>
+    <script src="modules/admin/controller.js"></script>
+    <script src="modules/admin/service.js"></script>
     <script src="modules/home/controller.js"></script>
     <script src="modules/home/service.js"></script>
 </head>
-<body style="{{BodySty}}">
+<body ng-style="BodySty">
     <div ng-if="ShowMenu">
         <nav class="navbar navbar-default nav-bg" role="navigation">
             <div class="container cpad">
@@ -34,7 +36,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class=""><a href="#" style="color:white;cursor:not-allowed">Receivables</a></li>
+                        <li class=""><a href="#/Receivable" style="color:white;">Receivables</a></li>
                         <li><a href="#" style="color:white;cursor:not-allowed">Asset management</a></li>
                         <li><a href="#" style="color:white;cursor:not-allowed">Reports</a></li>
                         <li class="dropdown">

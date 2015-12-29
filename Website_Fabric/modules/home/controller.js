@@ -1,215 +1,114 @@
 ﻿'use strict';
 
-angular.module('Admin')
+angular.module('Home')
 
-.controller('AdminController',
-    ['$scope', '$rootScope', 'AdminService',
-    function ($scope, $rootScope, AdminService) {
+.controller('HomeController',
+    ['$scope', '$rootScope', 'HomeService',
+    function ($scope, $rootScope, HomeService) {
+        //set bg color and show the menu
         $rootScope.BodySty = 'background-color: white;';
-        $scope.dataLoading = true;
-        $scope.tableLoading = false;
         $rootScope.ShowMenu = true;
 
+        $scope.locNotSelected = true;
+        $scope.locnames = [];
+        $scope.locnames.unshift({ "LocationId": 0, "LocationName": "-- Select location --" });
+        $scope.locName = { selected: 0 };
 
+        $scope.fruitNotSelected = true;
+        $scope.fruits = [];
+        $scope.fruits.unshift({ "Id": 0, "FruitName": "-- Select location --" });
+        $scope.fru = { selected: 0 };
 
-        $scope.sort = function (keyname) {
-            $scope.sortKey = keyname;
-            $scope.reverse = !$scope.reverse;
-        }
+        $scope.CustomerList = [];
 
-        //Fruit
-        $scope.addFruit = function (fruitModel) {
-            console.log($scope.category);
-            AdminService.AddFruit(fruitModel).then(function (response) {
-                if (response.data == true) {
-                    AdminService.GetFruit(function (response) {
-                        $scope.FruitList = response;
-                        $scope.AddTr = false;
-                    });
+        //get drop id
+        HomeService.GetDropID().then(function (response) {
+            $scope.dropid = response.data;
+        });
+
+        //get current location
+        HomeService.GetCurrentLocation().then(function (response) {
+            $scope.curLocation = response.data;
+            $scope.curLocation.unshift({ "LocationId": 0, "LocationName": "-- Select location --" });
+            $scope.curLoc = { selected: response.data[0].LocationId };
+        });
+
+        //get source
+        HomeService.GetLocationType().then(function (response) {
+            $scope.locations = response.data;
+            $scope.locations.unshift({ "LocationId": 0, "LocationType": "-- Select location --" });
+            $scope.loc = { selected: response.data[0].LocationId };
+        });
+
+        $scope.locChanged = function (selectedLocationId) {
+            HomeService.GetLocationByType(selectedLocationId).then(function (response) {
+                if (response.data == '') {
+                    $scope.locnames = [];
+                    $scope.locnames.unshift({ "LocationId": 0, "LocationName": "-- Select location --" });
+                    $scope.locName = { selected: 0 };
+                    $scope.locNotSelected = true;
                 }
                 else {
-                    console.log('add uesr fail');
+                    $scope.locNotSelected = false;
+                    $scope.locnames = response.data;
+                    $scope.locName = { selected: response.data[0].LocationId };
                 }
             });
         };
-        AdminService.GetFruit(function (response) {
-            $scope.FruitList = response;
-            $scope.tableLoading = true;
-            $scope.dataLoading = false;
 
+        //get fruit category
+        HomeService.GetFruitCategory().then(function (response) {
+            $scope.fruitCategories = response.data;
+            $scope.fruitCategories.unshift({ "CategoryId": 0, "CategoryName": "-- Select location --" });
+            $scope.fc = { selected: response.data[0].CategoryId };
         });
-        $scope.deleteFruit = function (id, index) {
-            if (confirm('Are you sure delete this fruit?')) {
-                AdminService.DeleteFruit(id).then(function (response) {
-                    if (response.data == true) {
-                        $scope.FruitList.splice(index, 1);
+
+        $scope.fruitChanged = function (selectedFruitId) {
+            HomeService.GetFruitByCategory(selectedFruitId).then(function (response) {
+                if (response.data == '') {
+                    console.log('emoty' + selectedFruitId);
+                    $scope.fruits = [];
+                    $scope.fruits.unshift({ "Id": 0, "FruitName": "-- Select location --" });
+                    $scope.fru = { selected: 0 };
+                    $scope.fruitNotSelected = true;
+                }
+                else {
+                    $scope.fruitNotSelected = false;
+                    $scope.fruits = response.data;
+                    $scope.fru = { selected: response.data[0].Id };
+                }
+            });
+        };
+
+        //get bin
+        HomeService.GetBin().then(function (response) {
+            $scope.bins = response.data;
+            $scope.bins.unshift({ "Id": 0, "TypeName": "-- Select location --" });
+            $scope.bi = { selected: response.data[0].Id };
+        });
+
+        //add in list
+        $scope.addlist = function () {
+            if ($scope.manualList == null) {
+                $scope.manualList = [
+                    {
+                        fruitCate: $scope.fc.selected,
+                        fruitType: $scope.fru.selected,
+                        binType: $scope.bi.selected,
+                        numBin: $scope.numberBin,
+                        customerBin: '0',
                     }
-                    else {
-                        console.log('delete fruit failed.');
-                    }
-                });
+                ];
             }
-        };
-        $scope.editFruit = function (model) {
-            AdminService.EditFruit(model).then(function (response) {
-                if (response.data == true) {
-                    AdminService.GetFruit(function (response) {
-                        $scope.FruitList = response;
-                        $scope.AddTr = false;
-                    });
-                }
-                else {
-                    console.log('Edit fruit failed.');
-                }
-            });
-        };
-
-        //Fruit category
-        $scope.addFruitCategory = function (fruitModel) {
-            AdminService.AddFruitCategory(fruitModel).then(function (response) {
-                if (response.data == true) {
-                    AdminService.GetFruitCategory(function (response) {
-                        $scope.FruitCategoryList = response;
-                        $scope.AddTr = false;
-                    });
-                }
-                else {
-                    console.log('add fruit category fail');
-                }
-            });
-        };
-        AdminService.GetFruitCategory(function (response) {
-            $scope.FruitCategoryList = response;
-            $scope.tableLoading = true;
-            $scope.dataLoading = false;
-            //get category dropdown on fruit
-            $scope.categories = response;
-        });
-        $scope.editFruitCategory = function (model) {
-            AdminService.EditFruitCategory(model).then(function (response) {
-                if (response.data == true) {
-                    AdminService.GetFruitCategory(function (response) {
-                        $scope.FruitCategoryList = response;
-                        $scope.AddTr = false;
-                    });
-                }
-                else {
-                    console.log('edit fruit category fail');
-                }
-            });
-        };
-        $scope.deleteFruitCategory = function (id, index) {
-            if (confirm('Are you sure delete this fruit category?')) {
-                AdminService.DeleteFruitCategory(id).then(function (response) {
-                    if (response.data == true) {
-                        $scope.FruitCategoryList.splice(index, 1);
-                    }
-                    else {
-                        console.log('delete fruit failed.');
-                    }
-                });
+            else {
+                $scope.manualList.push({ "fruitCate": $scope.fc.selected, "fruitType": $scope.fru.selected, "binType": $scope.bi.selected, "numBin": $scope.numberBin, "customerBin": '0' });
             }
         };
 
-        //Location type
-        $scope.addLocationType = function (locationModel) {
-            AdminService.AddLocationType(locationModel).then(function (response) {
-                if (response.data == true) {
-                    AdminService.GetLocationType(function (response) {
-                        $scope.LocationTypeList = response;
-                        $scope.AddTr = false;
-                    });
-                }
-                else {
-                    console.log('add fruit category fail');
-                }
-            });
-        };
-        AdminService.GetLocationType(function (response) {
-            $scope.LocationTypeList = response;
-            $scope.tableLoading = true;
-            $scope.dataLoading = false;
-            //get category dropdown on fruit
-            $scope.locations = response;
-        });
-        $scope.editLocationType = function (model) {
-            AdminService.EditLocationType(model).then(function (response) {
-                if (response.data == true) {
-                    AdminService.GetLocationType(function (response) {
-                        $scope.LocationTypeList = response;
-                        $scope.AddTr = false;
-                    });
-                }
-                else {
-                    console.log('edit fruit category fail');
-                }
-            });
-        };
-        $scope.deleteLocationType = function (id, index) {
-            if (confirm('Are you sure delete this location type?')) {
-                AdminService.DeleteLocationType(id).then(function (response) {
-                    if (response.data == true) {
-                        $scope.LocationTypeList.splice(index, 1);
-                    }
-                    else {
-                        console.log('delete fruit failed.');
-                    }
-                });
-            }
-        };
+        $scope.Submit = function () {
+            HomeService.Submit($scope.manualList, function (response) {
 
-        //Location
-        $scope.addLocation = function (model) {
-            AdminService.AddLocation(model).then(function (response) {
-                if (response.data == true) {
-                    AdminService.GetLocation(function (response) {
-                        $scope.LocationList = response;
-                        $scope.AddTr = false;
-                    });
-                }
-                else {
-                    console.log('add uesr fail');
-                }
-            });
-        };
-        AdminService.GetLocation(function (response) {
-            $scope.LocationList = response;
-            $scope.tableLoading = true;
-            $scope.dataLoading = false;
-
-        });
-        $scope.deleteLocation = function (id, index) {
-            if (confirm('Are you sure delete this location?')) {
-                AdminService.DeleteLocation(id).then(function (response) {
-                    if (response.data == true) {
-                        $scope.LocationList.splice(index, 1);
-                    }
-                    else {
-                        console.log('delete fruit failed.');
-                    }
-                });
-            }
-        };
-        $scope.editLocation = function (model) {
-            AdminService.EditLocation(model).then(function (response) {
-                if (response.data == true) {
-                    AdminService.GetLocation(function (response) {
-                        $scope.LocationList = response;
-                        $scope.AddTr = false;
-                    });
-                }
-                else {
-                    console.log('Edit fruit failed.');
-                }
             });
         };
 
-        $scope.Cancel = function () {
-            $scope.AddTr = false;
-            console.log($scope.AddTr);
-        };
-
-        $scope.ShowAdd = function () {
-            $scope.AddTr = true;
-        };
     }]);

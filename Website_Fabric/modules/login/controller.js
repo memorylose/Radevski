@@ -8,7 +8,7 @@ angular.module('Authentication')
         // reset login status    
         AuthenticationService.ClearCredentials();
         $rootScope.ShowMenu = false;
-        $rootScope.BodySty = 'background-color: #428BCA;';
+        $rootScope.BodySty = { 'background-color': '#428BCA' };
 
         $scope.login = function () {
             $scope.dataLoading = true;

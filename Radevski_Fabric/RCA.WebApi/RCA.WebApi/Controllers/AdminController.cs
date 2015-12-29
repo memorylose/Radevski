@@ -36,6 +36,19 @@ namespace RCA.WebApi.Controllers
             return fruit;
         }
 
+        [System.Web.Http.HttpGet]
+        public List<Fruit> GetFruitByCategory(int id)
+        {
+            var fruit = (from c in _db.Fruit
+                         select new Fruit()
+                         {
+                             Id = c.Id,
+                             CategoryId = c.CategoryId,
+                             FruitName = c.FruitName
+                         }).Where(c => c.CategoryId == id).OrderByDescending(c => c.Id).ToList();
+            return fruit;
+        }
+
         [System.Web.Http.HttpPost]
         public bool AddFruit(Fruit fruit)
         {
@@ -243,6 +256,19 @@ namespace RCA.WebApi.Controllers
             return location;
         }
 
+        [System.Web.Http.HttpGet]
+        public List<Location> GetLocationByType(int id)
+        {
+            var locationType = (from c in _db.Location
+                                select new Location()
+                                {
+                                    LocationId = c.Id,
+                                    LocationTypeId = c.TypeId,
+                                    LocationName = c.LocationName
+                                }).Where(c => c.LocationTypeId == id).OrderByDescending(c => c.LocationId).ToList();
+            return locationType;
+        }
+
         [System.Web.Http.HttpPost]
         public bool AddLocation(Location locaiton)
         {
@@ -297,6 +323,22 @@ namespace RCA.WebApi.Controllers
             }
         }
 
+
+        #endregion
+
+        #region Bin Type
+
+        [System.Web.Http.HttpGet]
+        public List<BinType> GetBinType()
+        {
+            var binType = (from c in _db.BinType
+                           select new BinType()
+                           {
+                               Id = c.Id,
+                               TypeName = c.TypeName
+                           }).OrderByDescending(c => c.Id).ToList();
+            return binType;
+        }
 
         #endregion
     }
