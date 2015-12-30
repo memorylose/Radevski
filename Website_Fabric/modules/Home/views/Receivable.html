@@ -1,12 +1,12 @@
-﻿<div class="form-horizontal">
+﻿<div class="form-horizontal container" style="padding:0;">
     <div class="form-group">
-        <label for="firstname" class="col-md-2 control-label">Drop ID</label>
+        <div class="col-md-1" style="height:30px; line-height:30px; font-weight:bold;">Drop Id</div>
         <div class="col-md-2" style="padding-top:7px;">
             {{dropid}}
         </div>
     </div>
     <div class="form-group">
-        <label for="firstname" class="col-md-2 control-label">Location</label>
+        <div class="col-md-1" style="height:30px; line-height:30px; font-weight:bold;">Location</div>
         <div class="col-md-2">
             <select id="inputArtist" class="form-control"
                     ng-model="curLoc.selected"
@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="lastname" class="col-md-2 control-label">Source</label>
+        <div class="col-md-1" style="height:30px; line-height:30px; font-weight:bold;">Source</div>
         <div class="col-md-2">
             <select id="inputArtist" class="form-control form-inline"
                     ng-model="loc.selected"
@@ -29,19 +29,19 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="firstname" class="col-md-2 control-label">Date</label>
+        <div class="col-md-1" style="height:30px; line-height:30px; font-weight:bold;">Date</div>
         <div class="col-md-2">
-
+            <input type="text" id="PurchaseDate" />
         </div>
     </div>
     <div class="form-group">
-        <label for="firstname" class="col-md-2 control-label">Bin Total</label>
+        <div class="col-md-1" style="height:30px; line-height:30px; font-weight:bold;">Bin Total</div>
         <div class="col-md-1">
-            <input type="text" class="form-control" />
+            <input type="text" class="form-control" ng-model="bintotal" />
         </div>
     </div>
 </div>
-<div class="container" style="margin-top:30px;">
+<div class="container" style="margin-top:30px; padding:0;">
     <div class="row">
         <div class="col-md-2">
             <div class="form-group">
@@ -105,10 +105,10 @@
 
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="margin:0; margin-bottom:20px; margin-top:20px;">
         <button type="button" class="btn btn-primary" ng-click="addlist()">Add in list</button>
     </div>
-    <div class="row">
+    <div class="row" style="margin:0;">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -150,21 +150,16 @@
             </tbody>
         </table>
     </div>
-
-</div>
-
-<div class="form-horizontal">
-
-    <div class="form-group">
-        <label for="firstname" class="col-md-2 control-label">Comments</label>
-        <div class="col-md-5">
+    <div class="row" style="margin:0;">
+        <div class="" style="font-weight:bold; margin-bottom:10px;">Comments</div>
+        <div class="col-md-7" style="padding:0;">
             <textarea rows="7" class="form-control" ng-model="comments"></textarea>
         </div>
     </div>
-    <div class="form-group">
-        <label for="firstname" class="col-md-2 control-label"></label>
-        <div class="col-md-1">
-            <button type="button" class="btn btn-primary" ng-click="Submit()">Submit</button>
-        </div>
+    <div class="row" style="margin:0; margin-top:30px;">
+        <button type="submit" class="btn btn-success" style="width:200px; display:block; margin:0 auto;" ng-click="Submit()">Submit</button>
     </div>
 </div>
+
+
+

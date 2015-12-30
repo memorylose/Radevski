@@ -106,8 +106,7 @@ angular.module('Home')
         };
 
         $scope.Submit = function () {
-            HomeService.Submit($scope.manualList, function (response) {
-
+            HomeService.Submit($scope.dropid, $scope.manualList, $scope.curLoc.selected, $scope.locName.selected, $scope.bintotal, $scope.comments, function (response) {
             });
         };
 

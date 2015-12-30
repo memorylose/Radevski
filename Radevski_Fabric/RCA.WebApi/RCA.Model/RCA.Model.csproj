@@ -52,6 +52,7 @@
     <Compile Include="Dto\BinType.cs" />
     <Compile Include="Dto\Fruit.cs" />
     <Compile Include="Dto\Location.cs" />
+    <Compile Include="Dto\Receivable.cs" />
     <Compile Include="Dto\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

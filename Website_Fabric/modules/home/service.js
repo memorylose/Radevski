@@ -25,22 +25,29 @@ angular.module('Home')
     service.GetBin = function () {
         return $http.get('/webapi/api/admin/GetBinType');
     };
-    service.Submit = function (dataArray) {
-        $http({
-            method: 'POST',
-            url: '/webapi/api/home/CreateReceivable',
-            data: {
-                'items': dataArray
-            },
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .success(function (data, status, headers, config) {
-                if (status === 200) {
-                    return data;
-                }
-            });
+    //service.Submit = function (dropid) {
+    //    console.log('drop1:' + dropid);
+    //    $http({
+    //        method: 'POST',
+    //        url: '/webapi/api/home/CreateReceivable',
+    //        data: {
+    //            //'items': dataArray,
+    //            'dropid': dropid
+    //        }
+    //    })
+    //        .success(function (data, status, headers, config) {
+    //            if (status === 200) {
+    //                return data;
+    //            }
+    //        });
+    //};
+    service.Submit = function (dropid, manualist, locationId, sourceId, binTotal, comments) {
+        console.log('drop1:' + dropid);
+        console.log('location:' + locationId);
+        $http.post('/webapi/api/home/CreateReceivable', { dropid: dropid, manualist: manualist, locationId: locationId, sourceId: sourceId, binTotal: binTotal, comments: comments })
+        .success(function (response) {
+            callback(response);
+        });
     };
 
     return service;
