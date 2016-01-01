@@ -14,6 +14,7 @@ namespace RCA.Model.Dto
         public int sourceId { get; set; }
         public int binTotal { get; set; }
         public string comments { get; set; }
+        public string myDate { get; set; }
     }
 
     public class items

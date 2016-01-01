@@ -31,7 +31,7 @@
     <div class="form-group">
         <div class="col-md-1" style="height:30px; line-height:30px; font-weight:bold;">Date</div>
         <div class="col-md-2">
-            <input type="text" id="PurchaseDate" />
+            <md-datepicker ng-model="myDate" md-placeholder="Enter date" class="" style="margin-left:-20px;"></md-datepicker>
         </div>
     </div>
     <div class="form-group">
@@ -97,7 +97,8 @@
                     <label for="name">Customer Bin?</label>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox">
+                            <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1" class="md-primary" style="margin-left:20px;">
+                            </md-checkbox>
                         </label>
                     </div>
                 </div>
@@ -156,10 +157,27 @@
             <textarea rows="7" class="form-control" ng-model="comments"></textarea>
         </div>
     </div>
-    <div class="row" style="margin:0; margin-top:30px;">
-        <button type="submit" class="btn btn-success" style="width:200px; display:block; margin:0 auto;" ng-click="Submit()">Submit</button>
+    <div class="row" style=" margin:0 auto;margin-top:30px; ">
+        <!--<button type="submit" class="btn btn-success" style="width:200px; display:block; margin:0 auto;" ng-click="Submit()">Submit</button>-->
+        <div style="width:200px; margin:0 auto;">
+            <md-button class="md-primary md-raised" ng-click="showConfirm($event)" flex="100" flex-gt-md="auto" style="width:200px; margin:0;" ng-disabled="IsSubmitBtn||curLoc.selected == 0">
+                Submit
+            </md-button>
+        </div>
+        <div class="progressLineardemoBasicUsage" ng-controller="HomeController as vm" layout="column" ng-show="IsProcess" style="margin-top:10px; " ng-cloak="">
+            <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+        </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
 
 
 

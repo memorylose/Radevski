@@ -2,7 +2,7 @@
 
 // declare modules
 angular.module('Authentication', []);
-angular.module('Home', []);
+angular.module('Home', ['ngMaterial', 'ngMessages']);
 angular.module('angularTable', ['angularUtils.directives.dirPagination']);
 angular.module('Admin', []);
 

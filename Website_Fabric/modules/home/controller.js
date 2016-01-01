@@ -3,8 +3,8 @@
 angular.module('Home')
 
 .controller('HomeController',
-    ['$scope', '$rootScope', 'HomeService',
-    function ($scope, $rootScope, HomeService) {
+    ['$scope', '$rootScope', 'HomeService', '$mdDialog', '$interval', '$timeout', '$location', '$route',
+    function ($scope, $rootScope, HomeService, $mdDialog, $interval, $timeout, $location, $route) {
         //set bg color and show the menu
         $rootScope.BodySty = 'background-color: white;';
         $rootScope.ShowMenu = true;
@@ -20,6 +20,10 @@ angular.module('Home')
         $scope.fru = { selected: 0 };
 
         $scope.CustomerList = [];
+
+
+        
+
 
         //get drop id
         HomeService.GetDropID().then(function (response) {
@@ -39,6 +43,8 @@ angular.module('Home')
             $scope.locations.unshift({ "LocationId": 0, "LocationType": "-- Select location --" });
             $scope.loc = { selected: response.data[0].LocationId };
         });
+
+        
 
         $scope.locChanged = function (selectedLocationId) {
             HomeService.GetLocationByType(selectedLocationId).then(function (response) {
@@ -106,8 +112,109 @@ angular.module('Home')
         };
 
         $scope.Submit = function () {
-            HomeService.Submit($scope.dropid, $scope.manualList, $scope.curLoc.selected, $scope.locName.selected, $scope.bintotal, $scope.comments, function (response) {
+            HomeService.Submit($scope.dropid, $scope.manualList, $scope.curLoc.selected, $scope.locName.selected, $scope.bintotal, $scope.comments, $scope.myDate, function (response) {
             });
         };
 
+        //common alert
+        $scope.showAlert = function (ev) {
+            $mdDialog.show(
+              $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('This is an alert title')
+                .textContent('You can specify some description text in here.')
+                .ariaLabel('Alert Dialog Demo')
+                .ok('Got it!')
+                .targetEvent(ev)
+            );
+        };
+
+        //confirm alert
+        $scope.showConfirm = function (ev) {
+            var confirm = $mdDialog.confirm()
+                  .title('Are you sure to submit all forms?')
+                  .textContent('All the information will be submited.')
+                  .ariaLabel('Lucky day')
+                  .targetEvent(ev)
+                  .ok('Do it')
+                  .cancel('Not now');
+            $mdDialog.show(confirm).then(function () {
+                $scope.IsProcess = true;
+                $scope.IsSubmitBtn = true;
+
+                $timeout(function () {
+                    HomeService.Submit($scope.dropid, $scope.manualList, $scope.curLoc.selected, $scope.locName.selected, $scope.bintotal, $scope.comments, $scope.myDate, function (response) {
+                        if (response == true) {
+                            $scope.IsProcess = false;
+                            $scope.IsSubmitBtn = false;
+
+                            $mdDialog.show(
+                                $mdDialog.alert()
+                                .parent(angular.element(document.querySelector('#popupContainer')))
+                                .clickOutsideToClose(true)
+                                .title('Successfully!')
+                                .textContent('Your information has been submited successfully.')
+                                .ariaLabel('Alert Dialog Demo')
+                                .ok('Ok')
+                                //.targetEvent(ev)
+                            ).then(function () {
+                                $route.reload();
+                            });
+                        }
+                    });
+                }, 3000);
+            }, function () {
+                //cancel
+            });
+        };
+
+        //date
+        $scope.myDate = new Date();
+
+        //process
+        var self = this, j = 0, counter = 0;
+
+        self.mode = 'query';
+        self.activated = true;
+        self.determinateValue = 30;
+        self.determinateValue2 = 30;
+
+        self.modes = [];
+
+        /**
+         * Turn off or on the 5 themed loaders
+         */
+        self.toggleActivation = function () {
+            if (!self.activated) self.modes = [];
+            if (self.activated) {
+                j = counter = 0;
+                self.determinateValue = 30;
+                self.determinateValue2 = 30;
+            }
+        };
+
+        $interval(function () {
+            self.determinateValue += 1;
+            self.determinateValue2 += 1.5;
+
+            if (self.determinateValue > 100) self.determinateValue = 30;
+            if (self.determinateValue2 > 100) self.determinateValue2 = 30;
+
+            // Incrementally start animation the five (5) Indeterminate,
+            // themed progress circular bars
+
+            if ((j < 2) && !self.modes[j] && self.activated) {
+                self.modes[j] = (j == 0) ? 'buffer' : 'query';
+            }
+            if (counter++ % 4 == 0) j++;
+
+            // Show the indicator in the "Used within Containers" after 200ms delay
+            if (j == 2) self.contained = "indeterminate";
+
+        }, 100, 0, true);
+
+        $interval(function () {
+            self.mode = (self.mode == 'query' ? 'determinate' : 'query');
+        }, 7200, 0, true);
     }]);

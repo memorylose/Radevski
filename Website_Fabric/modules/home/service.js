@@ -41,10 +41,10 @@ angular.module('Home')
     //            }
     //        });
     //};
-    service.Submit = function (dropid, manualist, locationId, sourceId, binTotal, comments) {
+    service.Submit = function (dropid, manualist, locationId, sourceId, binTotal, comments, myDate, callback) {
         console.log('drop1:' + dropid);
         console.log('location:' + locationId);
-        $http.post('/webapi/api/home/CreateReceivable', { dropid: dropid, manualist: manualist, locationId: locationId, sourceId: sourceId, binTotal: binTotal, comments: comments })
+        $http.post('/webapi/api/home/CreateReceivable', { dropid: dropid, manualist: manualist, locationId: locationId, sourceId: sourceId, binTotal: binTotal, comments: comments, myDate: myDate })
         .success(function (response) {
             callback(response);
         });
