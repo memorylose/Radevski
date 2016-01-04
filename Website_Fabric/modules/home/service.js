@@ -25,30 +25,11 @@ angular.module('Home')
     service.GetBin = function () {
         return $http.get('/webapi/api/admin/GetBinType');
     };
-    //service.Submit = function (dropid) {
-    //    console.log('drop1:' + dropid);
-    //    $http({
-    //        method: 'POST',
-    //        url: '/webapi/api/home/CreateReceivable',
-    //        data: {
-    //            //'items': dataArray,
-    //            'dropid': dropid
-    //        }
-    //    })
-    //        .success(function (data, status, headers, config) {
-    //            if (status === 200) {
-    //                return data;
-    //            }
-    //        });
-    //};
-    service.Submit = function (dropid, manualist, locationId, sourceId, binTotal, comments, myDate, callback) {
-        console.log('drop1:' + dropid);
-        console.log('location:' + locationId);
-        $http.post('/webapi/api/home/CreateReceivable', { dropid: dropid, manualist: manualist, locationId: locationId, sourceId: sourceId, binTotal: binTotal, comments: comments, myDate: myDate })
+    service.Submit = function (dropid, manualist, locationId, sourceId, binTotal, comments, myDate, fruitType, binType, numBin, customerBin, callback) {
+        $http.post('/webapi/api/home/CreateReceivable', { dropid: dropid, manualist: manualist, locationId: locationId, sourceId: sourceId, binTotal: binTotal, comments: comments, myDate: myDate, fruitType: fruitType, binType: binType, numBin: numBin, customerBin: customerBin })
         .success(function (response) {
             callback(response);
         });
     };
-
     return service;
 }]);

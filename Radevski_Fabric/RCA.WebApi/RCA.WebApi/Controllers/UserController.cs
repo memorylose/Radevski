@@ -2,9 +2,11 @@
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RCA.Model.Dto;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Linq;
 
 namespace RCA.WebApi.Controllers
 {
@@ -13,6 +15,12 @@ namespace RCA.WebApi.Controllers
         #region Initialize
 
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext _db;
+
+        public UserController()
+        {
+            _db = new ApplicationDbContext();
+        }
         public ApplicationUserManager UserManager
         {
             get
@@ -52,8 +60,46 @@ namespace RCA.WebApi.Controllers
             }
             else
             {
-                return Ok(new { success = false, message = "Create user failed." });
+                return Ok(new { success = false, message = result.Errors });
             }
+        }
+
+
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [System.Web.Http.HttpGet]
+        public bool DeleteUser(string id)
+        {
+            var user = UserManager.FindById(id);
+            var result = UserManager.Delete(user);
+            if (!result.Succeeded)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Get users
+        /// </summary>
+        /// <returns></returns>
+        [System.Web.Http.HttpGet]
+        public List<User> GetUsers()
+        {
+            var users = (from c in UserManager.Users.OrderByDescending(p => p.Id).ToList()
+                         select new User()
+                         {
+                             Id = c.Id,
+                             Username = c.UserName,
+                             Email = c.Email
+                         }).ToList();
+            return users;
         }
 
         #endregion

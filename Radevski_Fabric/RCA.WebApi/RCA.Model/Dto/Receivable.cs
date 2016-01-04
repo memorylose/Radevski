@@ -15,14 +15,18 @@ namespace RCA.Model.Dto
         public int binTotal { get; set; }
         public string comments { get; set; }
         public string myDate { get; set; }
+        public int fruitType { get; set; }
+        public int binType { get; set; }
+        public int numBin { get; set; }
+        public bool customerBin { get; set; }
     }
 
     public class items
     {
-        public string fruitCate { get; set; }
-        public string fruitType { get; set; }
-        public string binType { get; set; }
-        public string numBin { get; set; }
-        public string customerBin { get; set; }
+        public int fruitCate { get; set; }
+        public int fruitType { get; set; }
+        public int binType { get; set; }
+        public int numBin { get; set; }
+        public bool customerBin { get; set; }
     }
 }

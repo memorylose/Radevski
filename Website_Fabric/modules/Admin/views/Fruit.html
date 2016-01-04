@@ -7,15 +7,15 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th ng-click="sort('CategoryName')">
+                        <th ng-click="sort('CategoryName')" class="tableWidth">
                             Category Name
                             <span class="glyphicon sort-icon" ng-show="sortKey=='CategoryName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                         </th>
-                        <th ng-click="sort('FruitName')">
+                        <th ng-click="sort('FruitName')" class="tableWidth">
                             Fruit Name
                             <span class="glyphicon sort-icon" ng-show="sortKey=='FruitName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                         </th>
-                        <th>
+                        <th class="tableWidth">
                             Action
                         </th>
                     </tr>
@@ -31,7 +31,7 @@
                                 </option>
                             </select>
                         </td>
-                        <td><input type="text" ng-model="fruitModel.FruitName" /></td>
+                        <td><input type="text" ng-model="fruitModel.FruitName" class="form-control" /></td>
                         <td><button type="button" ng-click="addFruit(fruitModel)" class="btn btn-warning admin-btn" ng-disabled="fruitModel.CategoryId == null">Save</button><button type="button" class="btn btn-danger" ng-click="Cancel()">Cancel</button></td>
                     </tr>
                     <tr dir-paginate="model in FruitList|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
@@ -45,7 +45,7 @@
                                 </option>
                             </select>
                         </td>
-                        <td ng-if="IsEdit"><input type="text" ng-model="model.FruitName" value="{{model.FruitName}}" /></td>
+                        <td ng-if="IsEdit"><input type="text" ng-model="model.FruitName" value="{{model.FruitName}}" class="form-control" /></td>
                         <td>
                             <button type="button" ng-click="IsEdit = true" ng-show="!IsEdit" class="btn btn-warning admin-btn">Edit</button>
                             <button type="button" ng-click="deleteFruit(model.Id,$index)" ng-show="!IsEdit" class="btn btn-danger">Delete</button>

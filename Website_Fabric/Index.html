@@ -7,21 +7,21 @@
     <!--CSS-->
     <link rel="stylesheet" href="style/bootstrap.css" />
     <link rel="stylesheet" href="style/Radevski.css" />
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <link rel="stylesheet" href="style/angular-material.min.css">
 
     <!--reference js-->
     <script src="script/jquery-1.11.3.min.js"></script>
     <script src="script/bootstrap.js"></script>
     <script src="script/angular.min.js"></script>
     <script src="script/angular-route.js"></script>
-    <script src="script/angular-cookies.js"></script>    
+    <script src="script/angular-cookies.js"></script>
     <script src="script/DirPagination.js"></script>
 
     <!-- Angular Material requires Angular.js Libraries -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+    <script src="script/angular-animate.min.js"></script>
+    <script src="script/angular-aria.min.js"></script>
+    <script src="script/angular-messages.min.js"></script>
+    <script src="script/angular-material.min.js"></script>
 
     <!--common js-->
     <script src="script/app.js"></script>
@@ -33,9 +33,15 @@
     <script src="modules/admin/service.js"></script>
     <script src="modules/home/controller.js"></script>
     <script src="modules/home/service.js"></script>
-    
+
 </head>
 <body ng-style="BodySty">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-0"><img src="/image/logo.png" style="width:100%;" /></div>
+        </div>
+    </div>
+
     <div ng-if="ShowMenu">
         <nav class="navbar navbar-default nav-bg" role="navigation">
             <div class="container cpad">
@@ -47,7 +53,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#/" style="color:white;cursor:not-allowed">RCA</a>
+                    <a class="navbar-brand" href="#/Receivable" style="color:white;">RCA</a>
                 </div>
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
                     <ul class="nav navbar-nav">
@@ -65,12 +71,13 @@
                                 <li><a href="#/LocationType">Location type management</a></li>
                                 <li><a href="#/Location">Location management</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#" style="cursor:not-allowed;">Bin management</a></li>
+                                <li><a href="#/Bin">Bin management</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#" style="cursor:not-allowed;">User management</a></li>
+                                <li><a href="#/User">User management</a></li>
                             </ul>
                         </li>
                     </ul>
+                    <div style="float:right;" class=""><img src="/image/logo.png" style="height:52px;" class="" /></div>
                 </div>
             </div>
         </nav>

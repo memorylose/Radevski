@@ -9,15 +9,15 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th ng-click="sort('CategoryId')">
+                        <th ng-click="sort('CategoryId')" class="tableWidth">
                             Category Id
                             <span class="glyphicon sort-icon" ng-show="sortKey=='CategoryId'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                         </th>
-                        <th ng-click="sort('CategoryName')">
+                        <th ng-click="sort('CategoryName')" class="tableWidth">
                             Category Name
                             <span class="glyphicon sort-icon" ng-show="sortKey=='CategoryName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                         </th>
-                        <th>
+                        <th class="tableWidth">
                             Action
                         </th>
                     </tr>
@@ -25,14 +25,14 @@
                 <tbody>
                     <tr ng-if="AddTr">
                         <td></td>
-                        <td><input type="text" ng-model="fruitModel.CategoryName" /></td>
+                        <td><input type="text" ng-model="fruitModel.CategoryName" class="form-control" /></td>
                         <td><button type="button" ng-click="addFruitCategory(fruitModel)" class="btn btn-warning admin-btn">Save</button><button type="button" class="btn btn-danger" ng-click="Cancel()">Cancel</button></td>
                     </tr>
                     <tr dir-paginate="model in FruitCategoryList|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
                         <td ng-hide="editing">{{model.CategoryId}}</td>
                         <td ng-hide="editing">{{model.CategoryName}}</td>
                         <td ng-show="editing">{{model.CategoryId}}</td>
-                        <td ng-show="editing"><input type="text" ng-model="model.CategoryName" value="{{model.CategoryName}}" /></td>
+                        <td ng-show="editing"><input type="text" ng-model="model.CategoryName" value="{{model.CategoryName}}" class="form-control" /></td>
 
                         <td>
                             <button type="submit" ng-click="editing = true" ng-hide="editing" class="btn btn-warning admin-btn">Edit</button>

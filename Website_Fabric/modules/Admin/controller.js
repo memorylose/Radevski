@@ -10,7 +10,7 @@ angular.module('Admin')
         $scope.tableLoading = false;
         $rootScope.ShowMenu = true;
 
-
+        $scope.TestDisable = true;
 
         $scope.sort = function (keyname) {
             $scope.sortKey = keyname;
@@ -203,6 +203,101 @@ angular.module('Admin')
                 }
             });
         };
+
+        //Bin type
+        $scope.addBin = function (model) {
+            AdminService.AddBin(model).then(function (response) {
+                if (response.data == true) {
+                    AdminService.GetBin(function (response) {
+                        $scope.BinList = response;
+                        $scope.AddTr = false;
+                    });
+                }
+                else {
+                    console.log('add uesr fail');
+                }
+            });
+        };
+        AdminService.GetBin(function (response) {
+            $scope.BinList = response;
+            $scope.tableLoading = true;
+            $scope.dataLoading = false;
+
+        });
+        $scope.deleteBin = function (id, index) {
+            if (confirm('Are you sure delete this bin type?')) {
+                AdminService.DeleteBin(id).then(function (response) {
+                    if (response.data == true) {
+                        $scope.BinList.splice(index, 1);
+                    }
+                    else {
+                        console.log('delete fruit failed.');
+                    }
+                });
+            }
+        };
+        $scope.editBin = function (model) {
+            AdminService.EditBin(model).then(function (response) {
+                if (response.data == true) {
+                    AdminService.GetBin(function (response) {
+                        $scope.BinList = response;
+                        $scope.AddTr = false;
+                    });
+                }
+                else {
+                    console.log('Edit fruit failed.');
+                }
+            });
+        };
+
+        //Users
+        $scope.addUser = function (model) {
+            AdminService.AddUser(model).then(function (response) {
+                if (response.data.success) {
+                    AdminService.GetUser(function (response) {
+                        $scope.UserList = response;
+                        $scope.AddTr = false;
+                    });
+                }
+                else {
+                    alert(response.data.message);
+                }
+
+                console.log(response.data.success);
+
+            });
+        };
+        AdminService.GetUser(function (response) {
+            $scope.UserList = response;
+            $scope.tableLoading = true;
+            $scope.dataLoading = false;
+
+        });
+        $scope.deleteUser = function (id, index) {
+            if (confirm('Are you sure delete this user?')) {
+                AdminService.DeleteUser(id).then(function (response) {
+                    if (response.data == true) {
+                        $scope.UserList.splice(index, 1);
+                    }
+                    else {
+                        console.log('delete fruit failed.');
+                    }
+                });
+            }
+        };
+        //$scope.editBin = function (model) {
+        //    AdminService.EditBin(model).then(function (response) {
+        //        if (response.data == true) {
+        //            AdminService.GetBin(function (response) {
+        //                $scope.BinList = response;
+        //                $scope.AddTr = false;
+        //            });
+        //        }
+        //        else {
+        //            console.log('Edit fruit failed.');
+        //        }
+        //    });
+        //};
 
         $scope.Cancel = function () {
             $scope.AddTr = false;

@@ -340,6 +340,58 @@ namespace RCA.WebApi.Controllers
             return binType;
         }
 
+        [System.Web.Http.HttpPost]
+        public bool AddBinType(BinType bin)
+        {
+            //TODO mapper
+            Radevski.Models.DbEntity.BinType dbBin = new Radevski.Models.DbEntity.BinType();
+            dbBin.TypeName = bin.TypeName;
+
+            _db.Entry(dbBin).State = EntityState.Added;
+            int result = _db.SaveChanges();
+            if (result == 1)
+                return true;
+            else
+                return false;
+        }
+
+        [System.Web.Http.HttpPost]
+        public bool EditBin(BinType bin)
+        {
+            var editBin = _db.BinType.Find(bin.Id);
+            if (editBin != null)
+            {
+                editBin.TypeName = bin.TypeName;
+
+                _db.Entry(editBin).State = EntityState.Modified;
+                int result = _db.SaveChanges();
+                if (result == 1)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        [System.Web.Http.HttpGet]
+        public bool DeleteBin(int id)
+        {
+            var bin = _db.BinType.Find(id);
+            if (bin != null)
+            {
+                _db.BinType.Remove(bin);
+                _db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #endregion
     }
 }

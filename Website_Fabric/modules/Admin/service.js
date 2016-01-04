@@ -121,5 +121,55 @@ angular.module('Admin')
         return $http.get('/webapi/api/admin/DeleteLocation/' + id);
     };
 
+    //Bin type
+    service.AddBin = function (model) {
+        return $http({
+            method: 'POST',
+            url: '/webapi/api/admin/AddBinType',
+            data: model
+        });
+    };
+    service.GetBin = function (callback) {
+        $http.get('/webapi/api/admin/GetBinType')
+            .success(function (response) {
+                callback(response);
+            });
+    };
+    service.EditBin = function (model) {
+        return $http({
+            method: 'POST',
+            url: '/webapi/api/admin/EditBin',
+            data: model
+        });
+    };
+    service.DeleteBin = function (id) {
+        return $http.get('/webapi/api/admin/DeleteBin/' + id);
+    };
+
+    //Users
+    service.AddUser = function (model) {
+        return $http({
+            method: 'POST',
+            url: '/webapi/api/user/CreateUser',
+            data: model
+        });
+    };
+    service.GetUser = function (callback) {
+        $http.get('/webapi/api/user/GetUsers')
+            .success(function (response) {
+                callback(response);
+            });
+    };
+    //service.EditBin = function (model) {
+    //    return $http({
+    //        method: 'POST',
+    //        url: '/webapi/api/admin/EditBin',
+    //        data: model
+    //    });
+    //};
+    service.DeleteUser = function (id) {
+        return $http.get('/webapi/api/user/DeleteUser/' + id);
+    };
+
     return service;
 }]);

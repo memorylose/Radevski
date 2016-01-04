@@ -3,27 +3,33 @@
 angular.module('Home')
 
 .controller('HomeController',
-    ['$scope', '$rootScope', 'HomeService', '$mdDialog', '$interval', '$timeout', '$location', '$route',
-    function ($scope, $rootScope, HomeService, $mdDialog, $interval, $timeout, $location, $route) {
-        //set bg color and show the menu
+    ['$scope', '$rootScope', 'HomeService', '$mdDialog', '$interval', '$timeout', '$location', '$route', '$filter',
+    function ($scope, $rootScope, HomeService, $mdDialog, $interval, $timeout, $location, $route, $filter) {
+        //set bg color
         $rootScope.BodySty = 'background-color: white;';
+
+        //show menu
         $rootScope.ShowMenu = true;
 
+        //second source and fruit type are not selected
         $scope.locNotSelected = true;
+        $scope.fruitNotSelected = true;
+
+        //set location default value
         $scope.locnames = [];
         $scope.locnames.unshift({ "LocationId": 0, "LocationName": "-- Select location --" });
         $scope.locName = { selected: 0 };
 
-        $scope.fruitNotSelected = true;
+        //set fruit default value
         $scope.fruits = [];
         $scope.fruits.unshift({ "Id": 0, "FruitName": "-- Select location --" });
         $scope.fru = { selected: 0 };
 
-        $scope.CustomerList = [];
+        //set customer bin default value
+        $scope.customerCkBox = false;
 
-
-        
-
+        //intialize date
+        $scope.myDate = new Date();
 
         //get drop id
         HomeService.GetDropID().then(function (response) {
@@ -44,8 +50,7 @@ angular.module('Home')
             $scope.loc = { selected: response.data[0].LocationId };
         });
 
-        
-
+        //location changed
         $scope.locChanged = function (selectedLocationId) {
             HomeService.GetLocationByType(selectedLocationId).then(function (response) {
                 if (response.data == '') {
@@ -67,12 +72,13 @@ angular.module('Home')
             $scope.fruitCategories = response.data;
             $scope.fruitCategories.unshift({ "CategoryId": 0, "CategoryName": "-- Select location --" });
             $scope.fc = { selected: response.data[0].CategoryId };
+
         });
 
+        //fruit changed
         $scope.fruitChanged = function (selectedFruitId) {
             HomeService.GetFruitByCategory(selectedFruitId).then(function (response) {
                 if (response.data == '') {
-                    console.log('emoty' + selectedFruitId);
                     $scope.fruits = [];
                     $scope.fruits.unshift({ "Id": 0, "FruitName": "-- Select location --" });
                     $scope.fru = { selected: 0 };
@@ -82,6 +88,7 @@ angular.module('Home')
                     $scope.fruitNotSelected = false;
                     $scope.fruits = response.data;
                     $scope.fru = { selected: response.data[0].Id };
+
                 }
             });
         };
@@ -93,27 +100,36 @@ angular.module('Home')
             $scope.bi = { selected: response.data[0].Id };
         });
 
-        //add in list
+        var manualBinCount = 0;
+
+        //add to manual list
         $scope.addlist = function () {
+            var fruitValue = $filter("filter")($scope.fruitCategories, { CategoryId: $scope.fc.selected });
+            var fruitCateValue = $filter("filter")($scope.fruits, { Id: $scope.fru.selected });
+            var binValue = $filter("filter")($scope.bins, { Id: $scope.bi.selected });
+            manualBinCount += parseInt($scope.numberBin);
+
             if ($scope.manualList == null) {
                 $scope.manualList = [
                     {
-                        fruitCate: $scope.fc.selected,
+                        fruitCate: fruitValue[0].CategoryName,
                         fruitType: $scope.fru.selected,
+                        fruitTypeName: fruitCateValue[0].FruitName,
                         binType: $scope.bi.selected,
+                        binTypeName: binValue[0].TypeName,
                         numBin: $scope.numberBin,
-                        customerBin: '0',
+                        customerBin: $scope.customerCkBox,
                     }
                 ];
             }
             else {
-                $scope.manualList.push({ "fruitCate": $scope.fc.selected, "fruitType": $scope.fru.selected, "binType": $scope.bi.selected, "numBin": $scope.numberBin, "customerBin": '0' });
+                $scope.manualList.push({ "fruitCate": fruitValue[0].CategoryName, "fruitType": $scope.fru.selected, "fruitTypeName": fruitCateValue[0].FruitName, "binType": $scope.bi.selected, "binTypeName": binValue[0].TypeName, "numBin": $scope.numberBin, "customerBin": $scope.customerCkBox });
             }
         };
 
-        $scope.Submit = function () {
-            HomeService.Submit($scope.dropid, $scope.manualList, $scope.curLoc.selected, $scope.locName.selected, $scope.bintotal, $scope.comments, $scope.myDate, function (response) {
-            });
+        //remove manual list
+        $scope.RemoveList = function (index) {
+            $scope.manualList.splice(index, 1);
         };
 
         //common alert
@@ -130,49 +146,93 @@ angular.module('Home')
             );
         };
 
-        //confirm alert
+        //submit
         $scope.showConfirm = function (ev) {
-            var confirm = $mdDialog.confirm()
-                  .title('Are you sure to submit all forms?')
-                  .textContent('All the information will be submited.')
-                  .ariaLabel('Lucky day')
-                  .targetEvent(ev)
-                  .ok('Do it')
-                  .cancel('Not now');
-            $mdDialog.show(confirm).then(function () {
-                $scope.IsProcess = true;
-                $scope.IsSubmitBtn = true;
+            var binFlag = true;
 
-                $timeout(function () {
-                    HomeService.Submit($scope.dropid, $scope.manualList, $scope.curLoc.selected, $scope.locName.selected, $scope.bintotal, $scope.comments, $scope.myDate, function (response) {
-                        if (response == true) {
-                            $scope.IsProcess = false;
-                            $scope.IsSubmitBtn = false;
+            if ($scope.manualList == null || $scope.manualList == '') {
+                if ($scope.bintotal != $scope.numberBin) {
+                    binFlag = false;
+                }
+            }
+            else {
+                console.log('count:' + manualBinCount);
+                if ($scope.bintotal != manualBinCount) {
+                    binFlag = false;
+                }
+            }
 
-                            $mdDialog.show(
-                                $mdDialog.alert()
-                                .parent(angular.element(document.querySelector('#popupContainer')))
-                                .clickOutsideToClose(true)
-                                .title('Successfully!')
-                                .textContent('Your information has been submited successfully.')
-                                .ariaLabel('Alert Dialog Demo')
-                                .ok('Ok')
-                                //.targetEvent(ev)
-                            ).then(function () {
-                                $route.reload();
-                            });
-                        }
-                    });
-                }, 3000);
-            }, function () {
-                //cancel
-            });
+            if (!binFlag) {
+                $mdDialog.show(
+                    $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#popupContainer')))
+                    .clickOutsideToClose(true)
+                    .title('Alert')
+                    .textContent('Bin total is not equal to the number of bins!')
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('Ok')
+                    //.targetEvent(ev)
+                );
+            }
+            else {
+
+                var confirm = $mdDialog.confirm()
+                      .title('Are you sure to submit all forms?')
+                      .textContent('All the information will be submited.')
+                      .ariaLabel('Lucky day')
+                      .targetEvent(ev)
+                      .ok('Do it')
+                      .cancel('Not now');
+                $mdDialog.show(confirm).then(function () {
+                    $scope.IsProcess = true;
+                    $scope.IsSubmitBtn = true;
+
+                    $timeout(function () {
+                        console.log('bin select' + $scope.bi.selected);
+
+                        HomeService.Submit($scope.dropid, $scope.manualList, $scope.curLoc.selected, $scope.locName.selected, $scope.bintotal, $scope.comments, $scope.myDate, $scope.fru.selected, $scope.bi.selected, $scope.numberBin, $scope.customerCkBox, function (response) {
+                            if (response == true) {
+                                $scope.IsProcess = false;
+                                $scope.IsSubmitBtn = false;
+
+                                $mdDialog.show(
+                                    $mdDialog.alert()
+                                    .parent(angular.element(document.querySelector('#popupContainer')))
+                                    .clickOutsideToClose(true)
+                                    .title('Successfully!')
+                                    .textContent('Your information has been submited successfully.')
+                                    .ariaLabel('Alert Dialog Demo')
+                                    .ok('Ok')
+                                    //.targetEvent(ev)
+                                ).then(function () {
+                                    $route.reload();
+                                });
+                            }
+                            else {
+                                //error occurs
+                                $scope.IsProcess = false;
+                                $scope.IsSubmitBtn = false;
+
+                                $mdDialog.show(
+                                    $mdDialog.alert()
+                                    .parent(angular.element(document.querySelector('#popupContainer')))
+                                    .clickOutsideToClose(true)
+                                    .title('Failed!')
+                                    .textContent('Submit failed, please contact administrator.')
+                                    .ariaLabel('Alert Dialog Demo')
+                                    .ok('Ok')
+                                    //.targetEvent(ev)
+                                );
+                            }
+                        });
+                    }, 3000);
+                }, function () {
+                    //cancel
+                });
+            }
         };
 
-        //date
-        $scope.myDate = new Date();
-
-        //process
+        //process bar
         var self = this, j = 0, counter = 0;
 
         self.mode = 'query';

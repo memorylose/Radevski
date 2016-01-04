@@ -7,15 +7,15 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th ng-click="sort('LocationType')">
+                        <th ng-click="sort('LocationType')" class="tableWidth">
                             Location Type
                             <span class="glyphicon sort-icon" ng-show="sortKey=='LocationType'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                         </th>
-                        <th ng-click="sort('LocationName')">
+                        <th ng-click="sort('LocationName')" class="tableWidth">
                             Location
                             <span class="glyphicon sort-icon" ng-show="sortKey=='LocationName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                         </th>
-                        <th>
+                        <th class="tableWidth">
                             Action
                         </th>
                     </tr>
@@ -31,7 +31,7 @@
                                 </option>
                             </select>
                         </td>
-                        <td><input type="text" ng-model="model.LocationName" /></td>
+                        <td><input type="text" ng-model="model.LocationName" class="form-control" /></td>
                         <td><button type="button" ng-click="addLocation(model)" class="btn btn-warning admin-btn" ng-disabled="model.LocationTypeId == null">Save</button><button type="button" class="btn btn-danger" ng-click="Cancel()">Cancel</button></td>
                     </tr>
                     <tr dir-paginate="model in LocationList|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
@@ -45,7 +45,7 @@
                                 </option>
                             </select>
                         </td>
-                        <td ng-if="IsEdit"><input type="text" ng-model="model.LocationName" value="{{model.LocationName}}" /></td>
+                        <td ng-if="IsEdit"><input type="text" ng-model="model.LocationName" value="{{model.LocationName}}" class="form-control" /></td>
                         <td>
                             <button type="button" ng-click="IsEdit = true" ng-show="!IsEdit" class="btn btn-warning admin-btn">Edit</button>
                             <button type="button" ng-click="deleteLocation(model.LocationId,$index)" ng-show="!IsEdit" class="btn btn-danger">Delete</button>

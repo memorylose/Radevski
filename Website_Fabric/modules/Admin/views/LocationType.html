@@ -9,15 +9,15 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th ng-click="sort('LocationId')">
+                        <th ng-click="sort('LocationId')" class="tableWidth">
                             Id
                             <span class="glyphicon sort-icon" ng-show="sortKey=='LocationId'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                         </th>
-                        <th ng-click="sort('LocationType')">
+                        <th ng-click="sort('LocationType')" class="tableWidth">
                             Location Type
                             <span class="glyphicon sort-icon" ng-show="sortKey=='LocationType'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
                         </th>
-                        <th>
+                        <th class="tableWidth">
                             Action
                         </th>
                     </tr>
@@ -25,14 +25,14 @@
                 <tbody>
                     <tr ng-if="AddTr">
                         <td></td>
-                        <td><input type="text" ng-model="locationModel.LocationType" /></td>
+                        <td><input type="text" ng-model="locationModel.LocationType" class="form-control" /></td>
                         <td><button type="button" ng-click="addLocationType(locationModel)" class="btn btn-warning admin-btn">Save</button><button type="button" class="btn btn-danger" ng-click="Cancel()">Cancel</button></td>
                     </tr>
                     <tr dir-paginate="model in LocationTypeList|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
                         <td ng-hide="editing">{{model.LocationId}}</td>
                         <td ng-hide="editing">{{model.LocationType}}</td>
                         <td ng-show="editing">{{model.LocationId}}</td>
-                        <td ng-show="editing"><input type="text" ng-model="model.LocationType" value="{{model.LocationType}}" /></td>
+                        <td ng-show="editing"><input type="text" ng-model="model.LocationType" value="{{model.LocationType}}" class="form-control" /></td>
 
                         <td>
                             <button type="submit" ng-click="editing = true" ng-hide="editing" class="btn btn-warning admin-btn">Edit</button>
