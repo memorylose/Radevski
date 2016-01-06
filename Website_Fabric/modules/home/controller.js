@@ -17,12 +17,12 @@ angular.module('Home')
 
         //set location default value
         $scope.locnames = [];
-        $scope.locnames.unshift({ "LocationId": 0, "LocationName": "-- Select location --" });
+        $scope.locnames.unshift({ "LocationId": 0, "LocationName": "-- Select source --" });
         $scope.locName = { selected: 0 };
 
         //set fruit default value
         $scope.fruits = [];
-        $scope.fruits.unshift({ "Id": 0, "FruitName": "-- Select location --" });
+        $scope.fruits.unshift({ "Id": 0, "FruitName": "-- Select fruit --" });
         $scope.fru = { selected: 0 };
 
         //set customer bin default value
@@ -39,14 +39,14 @@ angular.module('Home')
         //get current location
         HomeService.GetCurrentLocation().then(function (response) {
             $scope.curLocation = response.data;
-            $scope.curLocation.unshift({ "LocationId": 0, "LocationName": "-- Select location --" });
+            $scope.curLocation.unshift({ "LocationId": 0, "LocationName": "-- Select warehouse --" });
             $scope.curLoc = { selected: response.data[0].LocationId };
         });
 
         //get source
         HomeService.GetLocationType().then(function (response) {
             $scope.locations = response.data;
-            $scope.locations.unshift({ "LocationId": 0, "LocationType": "-- Select location --" });
+            $scope.locations.unshift({ "LocationId": 0, "LocationType": "-- Select source --" });
             $scope.loc = { selected: response.data[0].LocationId };
         });
 
@@ -55,7 +55,7 @@ angular.module('Home')
             HomeService.GetLocationByType(selectedLocationId).then(function (response) {
                 if (response.data == '') {
                     $scope.locnames = [];
-                    $scope.locnames.unshift({ "LocationId": 0, "LocationName": "-- Select location --" });
+                    $scope.locnames.unshift({ "LocationId": 0, "LocationName": "-- Select source --" });
                     $scope.locName = { selected: 0 };
                     $scope.locNotSelected = true;
                 }
@@ -70,7 +70,7 @@ angular.module('Home')
         //get fruit category
         HomeService.GetFruitCategory().then(function (response) {
             $scope.fruitCategories = response.data;
-            $scope.fruitCategories.unshift({ "CategoryId": 0, "CategoryName": "-- Select location --" });
+            $scope.fruitCategories.unshift({ "CategoryId": 0, "CategoryName": "-- Select fruit --" });
             $scope.fc = { selected: response.data[0].CategoryId };
 
         });
@@ -80,7 +80,7 @@ angular.module('Home')
             HomeService.GetFruitByCategory(selectedFruitId).then(function (response) {
                 if (response.data == '') {
                     $scope.fruits = [];
-                    $scope.fruits.unshift({ "Id": 0, "FruitName": "-- Select location --" });
+                    $scope.fruits.unshift({ "Id": 0, "FruitName": "-- Select fruit --" });
                     $scope.fru = { selected: 0 };
                     $scope.fruitNotSelected = true;
                 }
@@ -96,7 +96,7 @@ angular.module('Home')
         //get bin
         HomeService.GetBin().then(function (response) {
             $scope.bins = response.data;
-            $scope.bins.unshift({ "Id": 0, "TypeName": "-- Select location --" });
+            $scope.bins.unshift({ "Id": 0, "TypeName": "-- Select bin type --" });
             $scope.bi = { selected: response.data[0].Id };
         });
 
@@ -125,6 +125,16 @@ angular.module('Home')
             else {
                 $scope.manualList.push({ "fruitCate": fruitValue[0].CategoryName, "fruitType": $scope.fru.selected, "fruitTypeName": fruitCateValue[0].FruitName, "binType": $scope.bi.selected, "binTypeName": binValue[0].TypeName, "numBin": $scope.numberBin, "customerBin": $scope.customerCkBox });
             }
+
+            //clear the forms
+            $scope.bi = { selected: 0 };
+            $scope.fc = { selected: 0 };
+            $scope.fruits = [];
+            $scope.fruits.unshift({ "Id": 0, "FruitName": "-- Select location --" });
+            $scope.fru = { selected: 0 };
+            $scope.fruitNotSelected = true;
+            $scope.numberBin = '';
+            $scope.customerCkBox = false;
         };
 
         //remove manual list

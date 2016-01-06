@@ -240,7 +240,7 @@ namespace RCA.WebApi.Controllers
 
         #endregion
 
-        #region Location
+        #region Source
 
         [System.Web.Http.HttpGet]
         public List<Location> GetLocation()
@@ -393,5 +393,72 @@ namespace RCA.WebApi.Controllers
         }
 
         #endregion
+
+        #region Receiver location
+
+        [System.Web.Http.HttpGet]
+        public List<ReceiverLocation> GetRecLocation()
+        {
+            var recLocation = (from c in _db.ReceiverLocation
+                               select new ReceiverLocation()
+                               {
+                                   Id = c.Id,
+                                   Name = c.Name
+                               }).OrderByDescending(c => c.Id).ToList();
+            return recLocation;
+        }
+
+        [System.Web.Http.HttpPost]
+        public bool AddRecLocation(ReceiverLocation receiverLoc)
+        {
+            Radevski.Models.DbEntity.ReceiverLocation dbLoc = new Radevski.Models.DbEntity.ReceiverLocation();
+            dbLoc.Name = receiverLoc.Name;
+
+            _db.Entry(dbLoc).State = EntityState.Added;
+            int result = _db.SaveChanges();
+            if (result == 1)
+                return true;
+            else
+                return false;
+        }
+
+        [System.Web.Http.HttpPost]
+        public bool EditRecLocation(ReceiverLocation receiverLoc)
+        {
+            var editLoc = _db.ReceiverLocation.Find(receiverLoc.Id);
+            if (editLoc != null)
+            {
+                editLoc.Name = receiverLoc.Name;
+
+                _db.Entry(editLoc).State = EntityState.Modified;
+                int result = _db.SaveChanges();
+                if (result == 1)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        [System.Web.Http.HttpGet]
+        public bool DeleteRecLocation(int id)
+        {
+            var loc = _db.ReceiverLocation.Find(id);
+            if (loc != null)
+            {
+                _db.ReceiverLocation.Remove(loc);
+                _db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        #endregion  
     }
 }

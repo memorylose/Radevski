@@ -53,7 +53,7 @@ namespace RCA.WebApi
         public DbSet<Location> Location { get; set; }
         public DbSet<Customization> Customization { get; set; }
         public DbSet<Receivable> Receivable { get; set; }
-
+        public DbSet<ReceiverLocation> ReceiverLocation { get; set; }
 
         public static ApplicationDbContext Create()
         {

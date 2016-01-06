@@ -30,14 +30,11 @@ th {
 }
 
 /*----Login-----*/
-
-
-
-/*.login-div {
-    height: 350px;
+.login-div {
     margin: 0 auto;
     border-radius: 3px;
     background-color: white;
+    padding-bottom: 20px;
 }
 
 .login-title {
@@ -48,7 +45,7 @@ th {
     padding-top: 30px;
 }
 
-.login-title-sub {
+.login-member {
     text-align: center;
     font-size: 14px;
     color: #636E7B;
@@ -56,7 +53,7 @@ th {
     padding-top: 20px;
 }
 
-.login-sign {
+.login-signT {
     text-align: center;
     font-size: 14px;
     color: #65707D;
@@ -64,18 +61,32 @@ th {
     padding-top: 2px;
 }
 
-.login-input-div {
+.login-error {
+    text-align: center;
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 15px;
+    color: red;
+}
+
+.login-userD {
     width: 85%;
     margin: 0 auto;
     margin-top: 25px;
 }
 
-.login-input {
-    height: 40px;
+.login-usererror {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 10px;
+    color: red;
+    font-size: 13px;
 }
 
-.login-ck-lb {
-    margin-left: 20px;
+.login-submitD {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 20px;
 }
 
 .login-ck {
@@ -83,15 +94,21 @@ th {
     height: 15px;
 }
 
-.login-rem {
+.login-ckT {
     color: #575F6A;
     font-size: 12px;
 }
 
-.login-signin {
+.login-submit {
     float: right;
     margin-top: 2px;
-}*/
+}
+
+.login-loading {
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
 /*----Administration-----*/
 .sort-icon {
     font-size: 9px;

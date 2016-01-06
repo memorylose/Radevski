@@ -19,11 +19,14 @@ angular.module('Admin')
     var service = {};
 
     //fruit
-    service.GetFruit = function (callback) {
-        $http.get('/webapi/api/admin/GetFruit')
-            .success(function (response) {
-                callback(response);
-            });
+    //service.GetFruit = function (callback) {
+    //    $http.get('/webapi/api/admin/GetFruit')
+    //        .success(function (response) {
+    //            callback(response);
+    //        });
+    //};
+    service.GetFruit = function () {
+        return $http.get('/webapi/api/admin/GetFruit');
     };
 
     service.AddFruit = function (fruitModel) {
@@ -54,11 +57,8 @@ angular.module('Admin')
             data: fruitModel
         });
     };
-    service.GetFruitCategory = function (callback) {
-        $http.get('/webapi/api/admin/GetFruitCategory')
-            .success(function (response) {
-                callback(response);
-            });
+    service.GetFruitCategory = function () {
+        return $http.get('/webapi/api/admin/GetFruitCategory');
     };
     service.EditFruitCategory = function (model) {
         return $http({
@@ -79,11 +79,8 @@ angular.module('Admin')
             data: fruitModel
         });
     };
-    service.GetLocationType = function (callback) {
-        $http.get('/webapi/api/admin/GetLocationType')
-            .success(function (response) {
-                callback(response);
-            });
+    service.GetLocationType = function () {
+        return $http.get('/webapi/api/admin/GetLocationType');
     };
     service.EditLocationType = function (model) {
         return $http({
@@ -104,11 +101,8 @@ angular.module('Admin')
             data: model
         });
     };
-    service.GetLocation = function (callback) {
-        $http.get('/webapi/api/admin/GetLocation')
-            .success(function (response) {
-                callback(response);
-            });
+    service.GetLocation = function () {
+        return $http.get('/webapi/api/admin/GetLocation');
     };
     service.EditLocation = function (model) {
         return $http({
@@ -129,11 +123,8 @@ angular.module('Admin')
             data: model
         });
     };
-    service.GetBin = function (callback) {
-        $http.get('/webapi/api/admin/GetBinType')
-            .success(function (response) {
-                callback(response);
-            });
+    service.GetBin = function () {
+        return $http.get('/webapi/api/admin/GetBinType');
     };
     service.EditBin = function (model) {
         return $http({
@@ -154,11 +145,8 @@ angular.module('Admin')
             data: model
         });
     };
-    service.GetUser = function (callback) {
-        $http.get('/webapi/api/user/GetUsers')
-            .success(function (response) {
-                callback(response);
-            });
+    service.GetUser = function () {
+        return $http.get('/webapi/api/user/GetUsers');
     };
     //service.EditBin = function (model) {
     //    return $http({
@@ -169,6 +157,28 @@ angular.module('Admin')
     //};
     service.DeleteUser = function (id) {
         return $http.get('/webapi/api/user/DeleteUser/' + id);
+    };
+
+    //Receiver location
+    service.AddRecLocation = function (model) {
+        return $http({
+            method: 'POST',
+            url: '/webapi/api/admin/AddRecLocation',
+            data: model
+        });
+    };
+    service.GetRecLocation = function (callback) {
+        return $http.get('/webapi/api/admin/GetRecLocation');
+    };
+    service.EditRecLocation = function (model) {
+        return $http({
+            method: 'POST',
+            url: '/webapi/api/admin/EditRecLocation',
+            data: model
+        });
+    };
+    service.DeleteRecLocation = function (id) {
+        return $http.get('/webapi/api/admin/DeleteRecLocation/' + id);
     };
 
     return service;
