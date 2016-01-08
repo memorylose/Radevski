@@ -23,9 +23,37 @@ th {
     display: none;
 }
 
+.loginBgSty {
+    background-color: #E64638;
+}
+
+.adminBgSty {
+    background-color: white;
+}
+
 @media only screen and (max-width:768px) {
     .col-md-0 {
         display: block;
+    }
+}
+
+.showMobile {
+    display: none;
+}
+
+@media only screen and (max-width:768px) {
+    .showMobile {
+        display: block;
+    }
+}
+
+.showPc {
+    display: block;
+}
+
+@media only screen and (max-width:768px) {
+    .showPc {
+        display: none;
     }
 }
 
@@ -39,7 +67,7 @@ th {
 
 .login-title {
     text-align: center;
-    color: #428BCA;
+    color: #E64638;
     font-weight: bold;
     font-size: 20px;
     padding-top: 30px;
@@ -56,7 +84,7 @@ th {
 .login-signT {
     text-align: center;
     font-size: 14px;
-    color: #65707D;
+    color: #E64638;
     font-size: 13px;
     padding-top: 2px;
 }
@@ -66,7 +94,8 @@ th {
     width: 85%;
     margin: 0 auto;
     margin-top: 15px;
-    color: red;
+    color: #E64638;
+    font-weight:bold;
 }
 
 .login-userD {
@@ -95,7 +124,7 @@ th {
 }
 
 .login-ckT {
-    color: #575F6A;
+    color: #E64638;
     font-size: 12px;
 }
 
@@ -116,8 +145,8 @@ th {
 }
 
 .nav-bg {
-    background-color: #428BCA;
-    /*background-color: #e64638;*/
+    /*background-color: #428BCA;*/
+    background-color: #e64638;
 }
 
 .admin-search {

@@ -1,6 +1,6 @@
-﻿<form name="form" ng-submit="login()" role="form">
+﻿<form name="form" role="form" ng-submit="login()">
     <div style="width:100%; height:50px; margin-bottom:50px;">
-        <!--<div class="col-md-2" style="color:#FFFFFF; font-weight:bold; font-size:15px; height:50px; line-height:50px; ">Redevski Coolstore Application</div>-->
+
     </div>
     <div class="container">
         <div class="row">
@@ -9,7 +9,7 @@
             <div class="col-md-4 cpad">
                 <div class="login-div">
                     <div class="login-title">Radevski Coolstore Application</div>
-                    <div class="login-member">Already a Member?</div>
+                    <div class="login-member"></div>
                     <div class="login-signT">Sign in to your account</div>
                     <div class="login-error" ng-show="error">{{error}}</div>
                     <div class="input-group login-userD ">
@@ -34,6 +34,8 @@
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6 cpad">
                             <button type="submit" class="btn btn-success login-submit" ng-disabled="form.$invalid || dataLoading">Sign in > </button>
+                            <!--<md-button class="md-raised md-warn login-submit" ng-click="login()" ng-disabled="form.$invalid || dataLoading" style="background-color:#E64638;">Sign in > </md-button>-->
+
                             <img ng-if="dataLoading" class="login-loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                         </div>
                     </div>
@@ -44,6 +46,5 @@
         </div>
     </div>
 </form>
-
 
 

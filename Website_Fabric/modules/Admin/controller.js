@@ -5,6 +5,7 @@ angular.module('Admin')
 .controller('AdminFruitController',
     ['$scope', '$rootScope', 'AdminService',
     function ($scope, $rootScope, AdminService) {
+
         //initialize admin page
         AdminPageInit($scope, $rootScope, AdminService);
 
@@ -415,9 +416,17 @@ angular.module('Admin')
         };
     }]);
 
+angular.module('Admin')
+.controller('AdminLogoutController',
+    ['$scope', '$rootScope', 'AuthenticationService', '$location', '$route',
+function ($scope, $rootScope, AuthenticationService, $location, $route) {
+    AuthenticationService.ClearCredentials();
+    $location.path("/login");
+}]);
 
 function AdminPageInit($scope, $rootScope, AdminService) {
-    $rootScope.BodySty = 'background-color: white;';
+    $rootScope.bgFlag = -1;
+    $rootScope.Username = $rootScope.globals.currentUser.username;
     $scope.dataLoading = true;
     $scope.tableLoading = false;
     $rootScope.ShowMenu = true;

@@ -115,5 +115,66 @@ namespace RCA.WebApi.Controllers
         }
 
         #endregion
+
+        #region Asset
+
+        [System.Web.Http.HttpPost]
+        public bool CreateAsset(RCA.Model.Dto.Asset model)
+        {
+            using (var dbContextTransaction = _db.Database.BeginTransaction())
+            {
+                try
+                {
+                    //add customization
+                    Customization dbCustomization = new Customization();
+                    dbCustomization.DropId = model.dropid;
+                    dbCustomization.CurrentLocation = model.locationId;
+                    dbCustomization.Source = model.sourceId;
+                    dbCustomization.BinTotal = model.binTotal;
+                    dbCustomization.DeliverDate = Convert.ToDateTime(model.myDate);
+                    dbCustomization.Comments = model.comments;
+
+                    _db.Entry(dbCustomization).State = EntityState.Added;
+                    _db.SaveChanges();
+
+                    //add asset
+                    Radevski.Models.DbEntity.Asset asset = new Radevski.Models.DbEntity.Asset();
+
+                    if (model.manualist == null)
+                    {
+                        asset.CustomizationId = dbCustomization.Id;
+                        asset.Direction = model.direction;
+                        asset.BinType = model.binType;
+                        asset.BinCount = model.numBin;
+                        asset.IsCustomer = model.customerBin;
+                        _db.Entry(asset).State = EntityState.Added;
+                        _db.SaveChanges();
+                    }
+                    else
+                    {
+                        foreach (AccsetItems item in model.manualist)
+                        {
+                            asset.CustomizationId = dbCustomization.Id;
+                            asset.Direction = item.direction;
+                            asset.BinType = item.binType;
+                            asset.BinCount = item.numBin;
+                            asset.IsCustomer = item.isCustomer;
+
+                            _db.Entry(asset).State = EntityState.Added;
+                            _db.SaveChanges();
+                        }
+                    }
+                    dbContextTransaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
+            }
+        }
+
+        #endregion
     }
 }

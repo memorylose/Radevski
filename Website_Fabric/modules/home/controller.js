@@ -5,8 +5,11 @@ angular.module('Home')
 .controller('HomeController',
     ['$scope', '$rootScope', 'HomeService', '$mdDialog', '$interval', '$timeout', '$location', '$route', '$filter',
     function ($scope, $rootScope, HomeService, $mdDialog, $interval, $timeout, $location, $route, $filter) {
+        //get current user
+        $rootScope.Username = $rootScope.globals.currentUser.username;
+
         //set bg color
-        $rootScope.BodySty = 'background-color: white;';
+        $rootScope.bgFlag = -1;
 
         //show menu
         $rootScope.ShowMenu = true;
@@ -39,8 +42,8 @@ angular.module('Home')
         //get current location
         HomeService.GetCurrentLocation().then(function (response) {
             $scope.curLocation = response.data;
-            $scope.curLocation.unshift({ "LocationId": 0, "LocationName": "-- Select warehouse --" });
-            $scope.curLoc = { selected: response.data[0].LocationId };
+            $scope.curLocation.unshift({ "Id": 0, "Name": "-- Select warehouse --" });
+            $scope.curLoc = { selected: response.data[0].Id };
         });
 
         //get source
@@ -138,7 +141,8 @@ angular.module('Home')
         };
 
         //remove manual list
-        $scope.RemoveList = function (index) {
+        $scope.RemoveList = function (index, rnumBin) {
+            manualBinCount -= parseInt(rnumBin);
             $scope.manualList.splice(index, 1);
         };
 
@@ -159,16 +163,31 @@ angular.module('Home')
         //submit
         $scope.showConfirm = function (ev) {
             var binFlag = true;
+            var binENum = 0;
+            var errorMsg = '';
 
             if ($scope.manualList == null || $scope.manualList == '') {
-                if ($scope.bintotal != $scope.numberBin) {
+                if (parseInt($scope.bintotal) > parseInt($scope.numberBin)) {
                     binFlag = false;
+                    binENum = parseInt($scope.bintotal) - parseInt($scope.numberBin);
+                    errorMsg = 'Bin total is not equal to the number of bins! There are ' + binENum + ' bins that need to be allocated.';
+                }
+                else if (parseInt($scope.bintotal) < parseInt($scope.numberBin)) {
+                    binFlag = false;
+                    binENum = parseInt($scope.numberBin) - parseInt($scope.bintotal);
+                    errorMsg = 'You have allocated ' + binENum + ' more bins than the Total Amount, please check your selection.';
                 }
             }
             else {
-                console.log('count:' + manualBinCount);
-                if ($scope.bintotal != manualBinCount) {
+                if (parseInt($scope.bintotal) > parseInt(manualBinCount)) {
                     binFlag = false;
+                    binENum = parseInt($scope.bintotal) - parseInt(manualBinCount);
+                    errorMsg = 'Bin total is not equal to the number of bins! There are ' + binENum + ' bins that need to be allocated.';
+                }
+                else if (parseInt($scope.bintotal) < parseInt(manualBinCount)) {
+                    binFlag = false;
+                    binENum = parseInt(manualBinCount) - parseInt($scope.bintotal);
+                    errorMsg = 'You have allocated ' + binENum + ' more bins than the Total Amount, please check your selection.';
                 }
             }
 
@@ -178,7 +197,7 @@ angular.module('Home')
                     .parent(angular.element(document.querySelector('#popupContainer')))
                     .clickOutsideToClose(true)
                     .title('Alert')
-                    .textContent('Bin total is not equal to the number of bins!')
+                    .textContent(errorMsg)
                     .ariaLabel('Alert Dialog Demo')
                     .ok('Ok')
                     //.targetEvent(ev)

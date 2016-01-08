@@ -49,6 +49,7 @@
     <Compile Include="DbEntity\Fruit.cs" />
     <Compile Include="DbEntity\Location.cs" />
     <Compile Include="DbEntity\Receivable.cs" />
+    <Compile Include="Dto\Asset.cs" />
     <Compile Include="Dto\BinType.cs" />
     <Compile Include="Dto\Fruit.cs" />
     <Compile Include="Dto\Location.cs" />

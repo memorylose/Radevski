@@ -55,6 +55,10 @@ angular.module('BasicHttpAuthExample', [
                   controller: 'HomeController',
                   templateUrl: 'modules/home/views/Receivable.html'
               })
+               .when('/Asset', {
+                   controller: 'HomeController',
+                   templateUrl: 'modules/home/views/Asset.html'
+               })
                   .when('/Bin', {
                       controller: 'AdminBinController',
                       templateUrl: 'modules/admin/views/Bin.html'
@@ -63,6 +67,10 @@ angular.module('BasicHttpAuthExample', [
                    controller: 'AdminUserController',
                    templateUrl: 'modules/admin/views/User.html'
                })
+                 .when('/Logout', {
+                     controller: 'AdminLogoutController',
+                     templateUrl: 'modules/admin/views/Logout.html'
+                 })
 
         .otherwise({ redirectTo: '/login' });
 }])
@@ -73,6 +81,7 @@ angular.module('BasicHttpAuthExample', [
         $rootScope.globals = $cookieStore.get('globals') || {};
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+            
         }
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
@@ -81,5 +90,4 @@ angular.module('BasicHttpAuthExample', [
                 $location.path('/#/login');
             }
         });
-
     }]);

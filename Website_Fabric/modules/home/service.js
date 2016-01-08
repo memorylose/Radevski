@@ -14,7 +14,7 @@ angular.module('Home')
         return $http.get('/webapi/api/home/GetDropID');
     };
     service.GetCurrentLocation = function () {
-        return $http.get('/webapi/api/admin/GetLocation');
+        return $http.get('/webapi/api/admin/GetRecLocation');
     };
     service.GetFruitCategory = function () {
         return $http.get('/webapi/api/admin/GetFruitCategory');
